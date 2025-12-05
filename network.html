@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Kiến thức Mạng - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+
+                    <section>
+                        <header class="main">
+                            <h1>Hệ thống Kiến thức Lập trình Mạng</h1>
+                        </header>
+                        <div class="box">
+                            <p><strong>Mục tiêu:</strong> Tài liệu này tổng hợp toàn bộ kiến thức chuyên sâu về Mạng máy tính mà tôi đã tích lũy. Từ nền tảng vật lý, các giao thức truyền tải, đến kỹ thuật lập trình Socket và bảo mật hệ thống. Đây là cơ sở để tôi xây dựng các ứng dụng Back-end hiệu năng cao.</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="major"><span class="icon solid fa-sitemap"></span> I. Nền tảng Mạng máy tính</h2>
+                        
+                        <h3>1. So sánh Mô hình OSI và TCP/IP</h3>
+                        <p>Hiểu sự tương quan giữa mô hình lý thuyết (OSI) và mô hình thực tế (TCP/IP) giúp việc debug lỗi mạng chính xác hơn.</p>
+                        
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tầng OSI (7 Layer)</th>
+                                        <th>Tầng TCP/IP (4 Layer)</th>
+                                        <th>Chức năng chính & Giao thức</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>7. Application<br>6. Presentation<br>5. Session</td>
+                                        <td><strong>Application</strong></td>
+                                        <td>Giao tiếp với người dùng cuối.<br><em>(HTTP, FTP, SMTP, DNS)</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4. Transport</td>
+                                        <td><strong>Transport</strong></td>
+                                        <td>Truyền tải dữ liệu, kiểm soát luồng.<br><em>(TCP, UDP)</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3. Network</td>
+                                        <td><strong>Internet</strong></td>
+                                        <td>Định tuyến đường đi gói tin (Routing).<br><em>(IP, ICMP, ARP)</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2. Data Link<br>1. Physical</td>
+                                        <td><strong>Network Access</strong></td>
+                                        <td>Truyền bit qua môi trường vật lý.<br><em>(Ethernet, Wi-Fi, MAC Address)</em></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>2. Địa chỉ & Định tuyến</h3>
+                        <div class="row">
+                            <div class="col-6 col-12-small">
+                                <ul class="alt">
+                                    <li><strong>IP Address:</strong> Định danh thiết bị trên mạng (IPv4: 32-bit, IPv6: 128-bit).</li>
+                                    <li><strong>Subnet Mask:</strong> Xác định phần mạng (Network ID) và phần máy (Host ID).</li>
+                                    <li><strong>DNS:</strong> "Danh bạ" của Internet, chuyển đổi tên miền (google.com) thành IP.</li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-12-small">
+                                <ul class="alt">
+                                    <li><strong>Routing Table:</strong> Bản đồ chỉ đường cho Router.</li>
+                                    <li><strong>Giao thức định tuyến:</strong> OSPF (Link-state), RIP (Distance-vector).</li>
+                                    <li><strong>Gateway:</strong> Cổng ra để kết nối với mạng bên ngoài (Internet).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <hr class="major" />
+
+                    <section>
+                        <h2 class="major"><span class="icon solid fa-exchange-alt"></span> II. Các Giao thức Mạng cốt lõi</h2>
+                        
+                        <div class="row">
+                            <div class="col-6 col-12-medium">
+                                <div class="box">
+                                    <h3>TCP (Transmission Control Protocol)</h3>
+                                    <ul>
+                                        <li><strong>Đặc điểm:</strong> Hướng kết nối, Tin cậy.</li>
+                                        <li><strong>Cơ chế:</strong> 3-way Handshake, Retransmission.</li>
+                                        <li><strong>Ứng dụng:</strong> Web (HTTP), Email, File Transfer.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-12-medium">
+                                <div class="box">
+                                    <h3>UDP (User Datagram Protocol)</h3>
+                                    <ul>
+                                        <li><strong>Đặc điểm:</strong> Không kết nối, Nhanh.</li>
+                                        <li><strong>Cơ chế:</strong> Gửi không đảm bảo, không sắp xếp.</li>
+                                        <li><strong>Ứng dụng:</strong> Game Online, Video Streaming, VoIP.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Giao thức Ứng dụng (Application Layer)</h3>
+                        <ul>
+                            <li><strong>HTTP/HTTPS:</strong> Giao thức của Web. HTTPS sử dụng TLS/SSL để mã hóa.</li>
+                            <li><strong>WebSocket:</strong> Giao thức truyền tin 2 chiều thời gian thực.</li>
+                            <li><strong>SSH:</strong> Giao thức quản trị Server từ xa an toàn.</li>
+                        </ul>
+                    </section>
+
+                    <hr class="major" />
+
+                    <section>
+                        <h2 class="major"><span class="icon solid fa-code"></span> III. Kỹ thuật Lập trình Socket</h2>
+                        <p>Socket là giao diện lập trình ứng dụng (API) mạng, cho phép hai tiến trình giao tiếp với nhau.</p>
+
+                        <h3>1. Quy trình hoạt động (Workflow)</h3>
+                        <div class="table-wrapper">
+                            <table class="alt">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Server</strong></td>
+                                        <td><code>socket()</code> &#8594; <code>bind()</code> &#8594; <code>listen()</code> &#8594; <code>accept()</code> &#8594; <code>read()/write()</code> &#8594; <code>close()</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Client</strong></td>
+                                        <td><code>socket()</code> &#8594; <code>connect()</code> &#8594; <code>write()/read()</code> &#8594; <code>close()</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>2. Kiến thức nâng cao về I/O</h3>
+                        <ul>
+                            <li><strong>Blocking I/O:</strong> Chương trình dừng lại chờ dữ liệu (Mặc định).</li>
+                            <li><strong>Non-blocking I/O:</strong> Chương trình không dừng, kiểm tra liên tục (Polling).</li>
+                            <li><strong>I/O Multiplexing:</strong> Sử dụng <code>select</code>, <code>poll</code>, <code>epoll</code> để quản lý hàng ngàn kết nối.</li>
+                        </ul>
+
+                        <h3>3. Ví dụ Code Python (TCP Server)</h3>
+<pre><code>import socket
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 8080))
+server.listen(5)
+print("Server đang lắng nghe tại port 8080...")
+
+while True:
+    client_socket, addr = server.accept()
+    print(f"Đã kết nối với {addr}")
+    msg = client_socket.recv(1024).decode('utf-8')
+    print(f"Client gửi: {msg}")
+    client_socket.close()</code></pre>
+                    </section>
+
+                    <hr class="major" />
+
+                    <section>
+                        <h2 class="major"><span class="icon solid fa-shield-alt"></span> IV. Bảo mật & Kiến thức Nâng cao</h2>
+                        
+                        <div class="row">
+                            <div class="col-6 col-12-medium">
+                                <h3>Bảo mật Mạng (Network Security)</h3>
+                                <ul>
+                                    <li><strong>Mã hóa (Encryption):</strong> AES (Đối xứng), RSA (Bất đối xứng).</li>
+                                    <li><strong>Firewall:</strong> Hệ thống lọc gói tin dựa trên luật (Rules).</li>
+                                    <li><strong>Chống tấn công:</strong> DDoS, SQL Injection, XSS, MITM.</li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-12-medium">
+                                <h3>Hệ thống Phân tán (Distributed System)</h3>
+                                <ul>
+                                    <li><strong>Load Balancing:</strong> Cân bằng tải (Nginx, HAProxy).</li>
+                                    <li><strong>RESTful API:</strong> Chuẩn thiết kế API dựa trên HTTP Methods.</li>
+                                    <li><strong>CDN:</strong> Mạng phân phối nội dung toàn cầu.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm..." />
+                        </form>
+                    </section>
+
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li><a href="blog.html">Blog Công nghệ</a></li> 
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+    </body>
+</html>
