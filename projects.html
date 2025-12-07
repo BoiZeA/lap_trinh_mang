@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Projects - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+        <style>
+            /* Layout Grid cho dự án */
+            .project-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .project-card {
+                background: #fff;
+                border: 1px solid #e1e4e8;
+                border-radius: 8px;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .project-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+                border-color: #f56a6a;
+            }
+
+            .project-card .image {
+                margin: 0;
+                height: 200px; /* Cố định chiều cao ảnh */
+                overflow: hidden;
+                border-bottom: 1px solid #eee;
+            }
+
+            .project-card .image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s;
+            }
+
+            .project-card:hover .image img {
+                transform: scale(1.05);
+            }
+
+            .card-body {
+                padding: 25px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Tiêu đề dự án */
+            .card-body h3 {
+                margin-top: 0;
+                margin-bottom: 0.5em;
+                font-size: 1.3em;
+                color: #3d4449;
+            }
+
+            /* Mô tả dự án */
+            .project-desc {
+                font-size: 0.95em;
+                color: #666;
+                margin-bottom: 15px;
+                line-height: 1.6;
+            }
+
+            /* Tech Stack Badge */
+            .tech-stack {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .tech-badge {
+                background: #f1f8ff;
+                color: #0366d6;
+                border: 1px solid #c8e1ff;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 0.8em;
+                font-weight: 600;
+                font-family: monospace;
+            }
+
+            /* Phần Tính năng nổi bật */
+            .feature-section {
+                background: #fff8f8; /* Nền hồng rất nhạt */
+                padding: 15px;
+                border-radius: 6px;
+                border-left: 4px solid #f56a6a;
+                margin-top: auto; /* Đẩy xuống đáy */
+                font-size: 0.9em;
+            }
+
+            .feature-section h4 {
+                font-size: 0.95em;
+                margin-bottom: 0.8em;
+                color: #3d4449;
+                font-weight: bold;
+                border-bottom: 1px dashed #ddd;
+                padding-bottom: 5px;
+            }
+
+            .feature-section ul {
+                margin: 0;
+                padding: 0;
+                list-style: none; /* Bỏ chấm tròn mặc định */
+                color: #555;
+            }
+            
+            .feature-section li {
+                margin-bottom: 8px;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            /* Tạo dấu check cho list */
+            .feature-section li::before {
+                content: '\f00c'; /* FontAwesome Check icon */
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                color: #f56a6a;
+                position: absolute;
+                left: 0;
+                top: 0;
+                font-size: 0.8em;
+            }
+        </style>
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+
+                    <section>
+                        <header class="main">
+                            <h1>Dự án Tiêu biểu (Selected Projects)</h1>
+                        </header>
+
+                        <div class="box">
+                            <p>Tổng hợp những sản phẩm phần mềm tôi đã xây dựng và phát triển trong quá trình học tập, nghiên cứu công nghệ mới.</p>
+                        </div>
+                        
+                        <div class="project-grid">
+                            
+                            <article class="project-card">
+                                <a href="#" class="image"><img src="images/pic01.jpg" alt="Gym Management" /></a>
+                                <div class="card-body">
+                                    <h3>Hệ thống Quản lý Gym Master</h3>
+                                    
+                                    <p class="project-desc">Phần mềm Desktop quản lý phòng tập, tích hợp phần cứng để kiểm soát ra vào tự động và quản lý doanh thu chặt chẽ.</p>
+
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">C# / WinForm</span>
+                                        <span class="tech-badge">SQL Server</span>
+                                        <span class="tech-badge">ADO.NET</span>
+                                        <span class="tech-badge">Serial Port (IoT)</span>
+                                    </div>
+
+                                    <div class="feature-section">
+                                        <h4><i class="fas fa-star"></i> Tính năng nổi bật:</h4>
+                                        <ul>
+                                            <li>Quản lý thông tin Hội viên & Gói tập.</li>
+                                            <li>Check-in/Check-out tự động bằng vân tay.</li>
+                                            <li>Báo cáo doanh thu & Thống kê tăng trưởng.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="project-card">
+                                <a href="#" class="image"><img src="images/pic02.jpg" alt="GoFit App" /></a>
+                                <div class="card-body">
+                                    <h3>GoFit - Personal Trainer App</h3>
+                                    
+                                    <p class="project-desc">Ứng dụng di động hỗ trợ tập luyện cá nhân hóa, giúp người dùng theo dõi dinh dưỡng và tập luyện khoa học ngay tại nhà.</p>
+
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Flutter</span>
+                                        <span class="tech-badge">Firebase</span>
+                                        <span class="tech-badge">Provider</span>
+                                        <span class="tech-badge">REST API</span>
+                                    </div>
+
+                                    <div class="feature-section">
+                                        <h4><i class="fas fa-star"></i> Tính năng nổi bật:</h4>
+                                        <ul>
+                                            <li>Tracking Calo (Tính toán TDEE/BMI).</li>
+                                            <li>Gợi ý lộ trình tập theo tạng người (Ecto/Meso/Endo).</li>
+                                            <li>Thư viện video hướng dẫn bài tập chuẩn.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="project-card">
+                                <a href="#" class="image"><img src="images/pic03.jpg" alt="SupStore" /></a>
+                                <div class="card-body">
+                                    <h3>SupStore - E-commerce Platform</h3>
+                                    
+                                    <p class="project-desc">Website thương mại điện tử chuyên cung cấp <strong>Thực phẩm bổ sung</strong> (Whey, Mass, Pre-workout) chính hãng cho người tập Gym.</p>
+
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Node.js</span>
+                                        <span class="tech-badge">MongoDB</span>
+                                        <span class="tech-badge">Redis</span>
+                                        <span class="tech-badge">Docker</span>
+                                    </div>
+
+                                    <div class="feature-section">
+                                        <h4><i class="fas fa-star"></i> Tính năng nổi bật:</h4>
+                                        <ul>
+                                            <li>Tìm kiếm & Lọc sản phẩm theo mục tiêu tập luyện.</li>
+                                            <li>Giỏ hàng & Thanh toán trực tuyến an toàn.</li>
+                                            <li>Quản lý đơn hàng & Kho hàng Real-time.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm..." />
+                        </form>
+                    </section>
+
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li><a href="blog.html">Blog Công nghệ</a></li> 
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+    </body>
+</html>

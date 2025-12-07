@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Bí kíp Subnetting Nhanh - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            .major h1, h2 { color: #f56a6a !important; }
+            .box code { font-size: 1em !important; }
+        </style>
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+                    
+                    <p><a href="blog.html" class="button small icon solid fa-arrow-left">Quay lại Blog</a></p>
+                    
+                    <section>
+                        <div id="content">
+                            
+                            <h1 class="major">Bí kíp chia Subnet mạng nhanh trong 30 giây</h1>
+                            <p>Đăng bởi: Trương Hải Nam | Chuyên mục: Network Engineering</p>
+                            
+                            <p>Subnetting là kỹ năng bắt buộc trong các bài thi Cisco. Phương pháp **"Magic Number"** sau đây là cách tính nhẩm nhanh nhất, giúp bạn xác định Network ID, Broadcast ID và Subnet Mask chỉ trong tích tắc mà không cần dùng công cụ.</p>
+
+                            <hr />
+
+                            <h2>1. Chuẩn bị: Bảng "2 mũ N"</h2>
+                            <p>Đây là bảng nền tảng bạn cần phải thuộc lòng. Nó đại diện cho giá trị thập phân (decimal) của mỗi bit trong 1 octet (8 bit):</p>
+                            <pre><code>Bit: | 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 |</code></pre>
+
+                            <h2>2. Công thức "Số Ảo" (Magic Number)</h2>
+                            <p><strong>Magic Number (MN)</strong> là giá trị giúp xác định các block địa chỉ mạng. Công thức tính như sau:</p>
+                            <div class="box">
+                                MN = 256 - [Giá trị thập phân của Octet cuối cùng của Subnet Mask]
+                            </div>
+                            
+                            <h3>Ví dụ 1: Tính /27 (255.255.255.224)</h3>
+                            <p>Subnet Mask kết thúc ở <strong>224</strong>. Ta áp dụng công thức:</p>
+                            <pre><code>MN = 256 - 224 = 32</code></pre>
+                            <p>&#8594; Vậy, mạng được chia thành các khối **32** đơn vị (Block Size: 32).</p>
+                            
+                            <p><strong>Các bước nhảy (Subnet IDs):</strong></p>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Network ID</th>
+                                            <th>Địa chỉ Host cuối</th>
+                                            <th>Broadcast ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>192.168.1.0</td>
+                                            <td>192.168.1.30</td>
+                                            <td>192.168.1.31</td>
+                                        </tr>
+                                        <tr>
+                                            <td>192.168.1.32</td>
+                                            <td>192.168.1.62</td>
+                                            <td>192.168.1.63</td>
+                                        </tr>
+                                        <tr>
+                                            <td>192.168.1.64</td>
+                                            <td>192.168.1.94</td>
+                                            <td>192.168.1.95</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Chỉ cần biết MN=32, bạn có thể tính nhẩm ra các mốc (0, 32, 64, 96...) mà không cần phải chuyển sang nhị phân!</p>
+
+                            <hr class="major" />
+
+                            <h2>3. Bí kíp "Ngược" (CIDR sang Host)</h2>
+                            <p>Nếu đề bài cho Subnet Mask dạng CIDR (ví dụ: /26), cách tìm ra Subnet Mask nhanh nhất là:</p>
+                            <div class="box">
+                                <strong>/26</strong> là 26 bit 1. Octet 4 có 2 bit 1 và 6 bit 0. <br>
+                                &#8594; Octet cuối = 128 + 64 = <strong>192</strong>.
+                                <br>
+                                &#8594; Subnet Mask = 255.255.255.192
+                            </div>
+                            <p>Đồng thời, bạn biết ngay MN = 256 - 192 = <strong>64</strong>. Rất nhanh và chính xác.</p>
+                            
+                            <p><strong>Kết luận:</strong> Phương pháp Magic Number là giải pháp tối ưu cho môi trường thi cử áp lực thời gian. Nắm vững bảng 2 mũ N và công thức 256-N là bạn đã làm chủ Subnetting!</p>
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                        </form>
+                    </section>
+
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li class="active"><a href="blog.html">Blog Công nghệ</a></li>
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+    </body>
+</html>

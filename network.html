@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Network Engineering - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+        <style>
+            .accordion {
+                background-color: #f7f9fa;
+                color: #2c3e50;
+                cursor: pointer;
+                padding: 20px;
+                width: 100%;
+                border: none;
+                text-align: left;
+                outline: none;
+                font-size: 1.15em;
+                font-weight: 700;
+                transition: 0.3s;
+                border-left: 6px solid #f56a6a;
+                margin-bottom: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+
+            .active, .accordion:hover {
+                background-color: #eef2f5;
+                border-left-color: #2c3e50;
+            }
+
+            .accordion:after {
+                content: '\f107'; /* FontAwesome Down Arrow */
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                font-size: 1.2em;
+                color: #7f8c8d;
+                transition: transform 0.3s;
+            }
+
+            .accordion.active:after {
+                transform: rotate(180deg); /* Xoay mũi tên lên */
+            }
+
+            .panel {
+                padding: 20px 25px;
+                display: none;
+                background-color: #fff;
+                border: 1px solid #e1e8ed;
+                border-top: none;
+                margin-bottom: 15px;
+            }
+            
+            .panel.show {
+                display: block;
+                animation: slideDown 0.3s ease-out;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            /* Style cho code và thuật ngữ */
+            .tech-tag {
+                background: #ebf5fb;
+                color: #2980b9;
+                padding: 3px 8px;
+                border-radius: 4px;
+                font-size: 0.85em;
+                font-weight: 600;
+                border: 1px solid #aed6f1;
+                margin-right: 5px;
+            }
+            
+            .highlight-text {
+                color: #c0392b;
+                font-weight: bold;
+            }
+
+            .code-block {
+                background: #282c34; /* Dark Theme */
+                color: #abb2bf;
+                padding: 15px;
+                border-radius: 6px;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9em;
+                overflow-x: auto;
+                line-height: 1.5;
+                margin: 15px 0;
+                border-left: 4px solid #61afef;
+            }
+            
+            .comment { color: #5c6370; font-style: italic; }
+            .keyword { color: #c678dd; font-weight: bold; }
+            .string { color: #98c379; }
+            .function { color: #61afef; }
+
+            h3 {
+                margin-top: 1.5em;
+                color: #2c3e50;
+                border-bottom: 2px solid #f56a6a;
+                display: inline-block;
+                padding-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+
+                    <section>
+                        <header class="main">
+                            <h1>Advanced Network Engineering</h1>
+                        </header>
+                        <div class="box">
+                            <p><strong>Triết lý Backend:</strong> "Performance is the currency of the Web."<br>
+                            Hệ thống kiến thức này đi sâu vào <span class="highlight-text">Kernel-level I/O</span>, tối ưu hóa <span class="highlight-text">Latency</span> và kiến trúc hệ thống phân tán (Distributed Systems).</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <button class="accordion">1. Anatomy of a Packet (Encapsulation Deep Dive)</button>
+                        <div class="panel">
+                            <p>Khi tôi gửi một request JSON <code>{"user_id": 1}</code>, dữ liệu thực sự đi qua các tầng như thế nào?</p>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Layer</th>
+                                            <th>Header Added</th>
+                                            <th>Nội dung quan trọng trong Header</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>L7: App</strong></td>
+                                            <td>HTTP Header</td>
+                                            <td><code>GET /api/user HTTP/1.1</code>, <code>Content-Type: application/json</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>L4: Transport</strong></td>
+                                            <td>TCP Header</td>
+                                            <td><strong>Source Port:</strong> (Random), <strong>Dest Port:</strong> 443<br><strong>Seq/Ack Number:</strong> Để sắp xếp lại gói tin.<br><strong>Flags:</strong> SYN, ACK, FIN, RST.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>L3: Network</strong></td>
+                                            <td>IP Header</td>
+                                            <td><strong>Source IP:</strong> 192.168.1.5, <strong>Dest IP:</strong> 142.250.x.x<br><strong>TTL:</strong> Time to Live (tránh loop vô hạn).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>L2: Link</strong></td>
+                                            <td>Ethernet Frame</td>
+                                            <td><strong>Source MAC:</strong> C8:D3:FF..., <strong>Dest MAC:</strong> (Gateway Router).<br><strong>FCS:</strong> Checksum kiểm tra lỗi bit.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <button class="accordion">2. TCP Internals: Reliability & Control</button>
+                        <div class="panel">
+                            <h3>1. Connection Lifecycle (State Machine)</h3>
+                            <div class="code-block">
+# 3-Way Handshake (Establish Connection)
+[Client] --- SYN (Seq=x) --------------> [Server] (LISTEN)
+[Client] <--- SYN-ACK (Ack=x+1, Seq=y) - [Server] (SYN_RCVD)
+[Client] --- ACK (Ack=y+1) ------------> [Server] (ESTABLISHED)
+
+# 4-Way Handshake (Termination)
+[Client] --- FIN ----------------------> [Server] (CLOSE_WAIT)
+[Client] <--- ACK ---------------------- [Server]
+... Server xử lý nốt dữ liệu còn dư ...
+[Client] <--- FIN ---------------------- [Server] (LAST_ACK)
+[Client] --- ACK ----------------------> [Server] (CLOSED)
+                            </div>
+                            
+                            <h3>2. Cơ chế đảm bảo hiệu năng</h3>
+                            <ul>
+                                <li><strong>Sliding Window (Flow Control):</strong> Server báo cho Client biết "bộ đệm của tôi còn trống 10KB". Client chỉ gửi tối đa 10KB rồi dừng chờ. -> <em>Tránh làm tràn bộ nhớ bên nhận.</em></li>
+                                <li><strong>Congestion Control (Slow Start):</strong> Bắt đầu gửi chậm (đề phòng mạng nghẽn), sau đó tăng gấp đôi tốc độ (Exponential Growth) cho đến khi gặp Packet Loss. -> <em>Tránh làm sập mạng lưới trung gian.</em></li>
+                            </ul>
+                        </div>
+
+                        <button class="accordion">3. High Performance HTTP (1.1 vs 2 vs 3)</button>
+                        <div class="panel">
+                            <p>Phân tích sự khác biệt về mặt kỹ thuật:</p>
+                            <ul>
+                                <li>
+                                    <strong>HTTP/1.1 (Cũ):</strong>
+                                    <br> - <span class="highlight-text">Head-of-Line Blocking:</span> Request A chưa xong, Request B phải chờ (trên cùng 1 kết nối).
+                                    <br> - <em>Workaround:</em> Domain Sharding (tạo nhiều subdomain để trình duyệt mở nhiều kết nối TCP hơn).
+                                </li>
+                                <li>
+                                    <strong>HTTP/2 (Hiện tại):</strong>
+                                    <br> - <span class="highlight-text">Binary Framing Layer:</span> Chia nhỏ dữ liệu thành các Frame nhị phân.
+                                    <br> - <span class="highlight-text">Multiplexing:</span> Request A và B chạy song song trên 1 Stream ID khác nhau nhưng chung 1 TCP Connection.
+                                    <br> - <strong>Vấn đề:</strong> Vẫn bị TCP Head-of-Line Blocking (nếu mất 1 gói TCP, toàn bộ các Stream HTTP bên trong đều bị dừng).
+                                </li>
+                                <li>
+                                    <strong>HTTP/3 + QUIC (Tương lai):</strong>
+                                    <br> - Chạy trên <strong>UDP</strong>.
+                                    <br> - Tự xây dựng cơ chế tin cậy (Reliability) và Congestion Control ở tầng Application (User-space) thay vì Kernel.
+                                    <br> - <strong>0-RTT:</strong> Kết nối lại không cần Handshake.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button class="accordion">4. Advanced Socket: Non-blocking I/O</button>
+                        <div class="panel">
+                            <p>Demo cách xây dựng Server xử lý hàng ngàn kết nối bằng <strong>I/O Multiplexing</strong> (tương tự cách Node.js Event Loop hay Redis hoạt động).</p>
+                            
+                            <div class="code-block">
+<span class="keyword">import</span> selectors
+<span class="keyword">import</span> socket
+
+sel = selectors.DefaultSelector() <span class="comment"># Tự chọn epoll (Linux) hoặc kqueue (Mac)</span>
+
+<span class="keyword">def</span> <span class="function">accept_wrapper</span>(sock):
+    conn, addr = sock.accept()
+    conn.setblocking(<span class="keyword">False</span>) <span class="comment"># Quan trọng: Không dừng chờ</span>
+    data = types.SimpleNamespace(addr=addr, inb=b<span class="string">""</span>, outb=b<span class="string">""</span>)
+    <span class="comment"># Đăng ký giám sát: Khi nào socket này ĐỌC được, gọi hàm service_connection</span>
+    sel.register(conn, selectors.EVENT_READ | selectors.EVENT_WRITE, data=data)
+
+<span class="keyword">def</span> <span class="function">service_connection</span>(key, mask):
+    sock = key.fileobj
+    data = key.data
+    <span class="keyword">if</span> mask & selectors.EVENT_READ:
+        recv_data = sock.recv(1024)
+        <span class="keyword">if</span> recv_data:
+            data.outb += recv_data
+        <span class="keyword">else</span>:
+            <span class="comment"># Client ngắt kết nối</span>
+            sel.unregister(sock)
+            sock.close()
+    <span class="keyword">if</span> mask & selectors.EVENT_WRITE:
+        <span class="keyword">if</span> data.outb:
+            sent = sock.send(data.outb)
+            data.outb = data.outb[sent:] <span class="comment"># Xóa phần đã gửi</span>
+
+<span class="comment"># Main Loop</span>
+lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+lsock.bind((<span class="string">'localhost'</span>, 8080))
+lsock.listen()
+lsock.setblocking(<span class="keyword">False</span>)
+sel.register(lsock, selectors.EVENT_READ, data=<span class="keyword">None</span>)
+
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    events = sel.select(timeout=<span class="keyword">None</span>) <span class="comment"># Chặn tại đây cho đến khi có sự kiện</span>
+    <span class="keyword">for</span> key, mask <span class="keyword">in</span> events:
+        <span class="keyword">if</span> key.data <span class="keyword">is None</span>:
+            accept_wrapper(key.fileobj) <span class="comment"># Có kết nối mới</span>
+        <span class="keyword">else</span>:
+            service_connection(key, mask) <span class="comment"># Có dữ liệu đến</span>
+                            </div>
+                        </div>
+
+                        <button class="accordion">5. Security & TLS 1.3 Handshake</button>
+                        <div class="panel">
+                            <h3>Tại sao HTTPS an toàn?</h3>
+                            <p>Không chỉ là mã hóa, nó đảm bảo 3 yếu tố: <strong>Confidentiality</strong> (Bí mật), <strong>Integrity</strong> (Toàn vẹn), <strong>Authentication</strong> (Xác thực).</p>
+                            
+                            <h3>Quy trình TLS 1.2 vs 1.3</h3>
+                            <ul>
+                                <li><strong>TLS 1.2 (2 RTT):</strong> Cần 2 vòng gửi đi gửi lại để thiết lập khóa.</li>
+                                <li><strong>TLS 1.3 (1 RTT):</strong> Tối ưu hóa cực mạnh. Client đoán luôn thuật toán Server hỗ trợ và gửi khóa ngay lần đầu (Client Hello + Key Share). -> <em>Nhanh hơn 50%.</em></li>
+                            </ul>
+                            <p><strong>Certificate Authority (CA):</strong> Là tổ chức thứ 3 uy tín (như Let's Encrypt) xác nhận Public Key này đúng là của <code>namzea.github.io</code>.</p>
+                        </div>
+
+                        <button class="accordion">6. System Design: Scalability</button>
+                        <div class="panel">
+                            <h3>1. Reverse Proxy (Nginx)</h3>
+                            <p>Server Backend (Java/Node) không nên tiếp xúc trực tiếp với Internet. Reverse Proxy đứng trước để:</p>
+                            <ul>
+                                <li><strong>SSL Termination:</strong> Giải mã HTTPS tại Nginx, request vào trong chỉ còn là HTTP (giảm tải CPU cho Backend).</li>
+                                <li><strong>Caching:</strong> Lưu các file tĩnh (static files) để trả về ngay lập tức.</li>
+                            </ul>
+                            
+                            <h3>2. Load Balancing Strategies</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <tr>
+                                        <td><strong>Round Robin</strong></td>
+                                        <td>Lần lượt từng Server. Dễ cài đặt, nhưng không quan tâm Server nào đang yếu.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Least Connections</strong></td>
+                                        <td>Gửi cho Server đang có ít kết nối nhất. Tốt cho các request xử lý lâu (Long-polling).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>IP Hash</strong></td>
+                                        <td>IP 192.x luôn vào Server A. Cần thiết khi ứng dụng có lưu Session cục bộ.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <button class="accordion">7. DNS Internals: The Phonebook of Internet</button>
+                        <div class="panel">
+                            
+
+[Image of DNS recursive query diagram]
+
+                            <p>Điều gì xảy ra khi bạn gõ <code>google.com</code> vào trình duyệt? Đó là một chuỗi truy vấn đệ quy phức tạp.</p>
+                            
+                            <h3>Quy trình phân giải DNS (Resolution Process)</h3>
+                            <ol>
+                                <li><strong>Browser Cache:</strong> Kiểm tra xem vừa nãy có vào chưa.</li>
+                                <li><strong>OS Cache:</strong> Kiểm tra file <code>/etc/hosts</code>.</li>
+                                <li><strong>Recursive Resolver (ISP):</strong> Hỏi máy chủ DNS của nhà mạng (Viettel/FPT/VNPT).</li>
+                                <li><strong>Root Server (.) -> TLD Server (.com) -> Authoritative Server (google.com):</strong> Đây là chuỗi hỏi đường để tìm ra địa chỉ IP cuối cùng.</li>
+                            </ol>
+                            
+                            <h3>DNS Records quan trọng</h3>
+                            <ul>
+                                <li><strong>A Record:</strong> Ánh xạ tên miền sang IPv4 (<code>google.com -> 142.250.x.x</code>).</li>
+                                <li><strong>CNAME:</strong> Tên bí danh (<code>www.google.com -> google.com</code>).</li>
+                                <li><strong>MX Record:</strong> Dùng cho Mail Server.</li>
+                            </ul>
+                        </div>
+
+                        <button class="accordion">8. Database Networking: Connection Pooling</button>
+                        <div class="panel">
+                            
+                            <p>Tại sao mở kết nối Database lại "đắt đỏ" (Expensive)? Vì nó bao gồm: TCP Handshake + SSL Handshake + Database Auth (kiểm tra user/pass).</p>
+                            
+                            <h3>Connection Pool (HikariCP, c3p0)</h3>
+                            <p>Thay vì mỗi Request mở một kết nối mới rồi đóng lại, ta duy trì một "bể" các kết nối mở sẵn.</p>
+                            <div class="code-block">
+<span class="comment"># Logic hoạt động của Connection Pool</span>
+1. App khởi động -> Tạo sẵn 10 kết nối đến DB.
+2. Request A đến -> Mượn kết nối số 1 -> Query xong -> Trả về bể (Không đóng).
+3. Request B đến -> Mượn kết nối số 1 (vừa được trả).
+=> <span class="highlight-text">Latency giảm từ 200ms xuống 5ms</span>.
+                            </div>
+                        </div>
+
+                        <button class="accordion">9. Caching Strategies & CDN</button>
+                        <div class="panel">
+                            
+
+[Image of content delivery network architecture]
+
+                            <h3>Content Delivery Network (CDN)</h3>
+                            <p>Người dùng ở Việt Nam truy cập Server ở Mỹ sẽ rất chậm. CDN giải quyết bằng cách copy các file tĩnh (Ảnh, JS, CSS) ra các <strong>Edge Server</strong> đặt tại Việt Nam.</p>
+                            
+                            <h3>Caching Layers</h3>
+                            <ul>
+                                <li><strong>Browser Cache:</strong> Lưu tại máy người dùng.</li>
+                                <li><strong>Reverse Proxy Cache (Nginx):</strong> Lưu tại Gateway của hệ thống.</li>
+                                <li><strong>Application Cache (Redis/Memcached):</strong> Lưu kết quả truy vấn Database hoặc tính toán nặng vào RAM để lấy ra cực nhanh.</li>
+                            </ul>
+                            <p><em>Thách thức lớn nhất: Cache Invalidation (Làm sao biết khi nào dữ liệu cũ hết hạn?).</em></p>
+                        </div>
+
+                        <button class="accordion">10. Real-time Communication: WebSocket vs REST</button>
+                        <div class="panel">
+                            
+
+[Image of WebSocket vs HTTP polling diagram]
+
+                            <p>Làm sao để làm tính năng Chat hoặc Thông báo (Notification) thời gian thực?</p>
+                            
+                            <h3>So sánh kỹ thuật</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <tr>
+                                        <td><strong>REST (HTTP Polling)</strong></td>
+                                        <td>Client liên tục hỏi Server: "Có tin nhắn mới không?" mỗi 1 giây. <br>-> <span class="highlight-text">Tốn băng thông, độ trễ cao.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WebSocket</strong></td>
+                                        <td>Thiết lập 1 đường ống 2 chiều (Duplex) duy nhất. Server chủ động đẩy (Push) tin nhắn xuống ngay khi có. <br>-> <span class="highlight-text">Hiệu năng cao, độ trễ thấp.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Server-Sent Events (SSE)</strong></td>
+                                        <td>Chỉ 1 chiều từ Server -> Client. Phù hợp cho bảng tin chứng khoán, thông báo.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm..." />
+                        </form>
+                    </section>
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li><a href="blog.html">Blog Công nghệ</a></li> 
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        var panel = this.nextElementSibling;
+                        if (panel.style.display === "block") {
+                            panel.style.display = "none";
+                        } else {
+                            panel.style.display = "block";
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

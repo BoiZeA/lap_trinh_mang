@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Đồ án Quản lý Gym C# - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            .major h1, h2 { color: #f56a6a !important; }
+            .box code { font-size: 1em !important; }
+        </style>
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+                    
+                    <p><a href="blog.html" class="button small icon solid fa-arrow-left">Quay lại Blog</a></p>
+                    
+                    <section>
+                        <div id="content">
+                            
+                            <h1 class="major">Hành trình 3 tháng làm đồ án Quản lý Gym bằng C#</h1>
+                            <p>Đăng bởi: Trương Hải Nam | Chuyên mục: C# & Database</p>
+                            
+                            <span class="image main"><img src="images/xixap.jpg" alt="Phần mềm Quản lý Gym C#" /></span>
+                            
+                            <p>Đồ án Quản lý Phòng Gym là dự án phức tạp nhất tôi từng thực hiện. Nó không chỉ là về giao diện (UI) mà còn liên quan đến xử lý **nghiệp vụ (Business Logic) và tích hợp phần cứng (Hardware Integration)**. Dưới đây là những bài học "xương máu" tôi rút ra được:</p>
+
+                            <hr />
+
+                            <h2>1. Thách thức lớn nhất: Thiết kế Database</h2>
+                            <p>Lúc đầu, tôi thiết kế Database rất đơn giản, nhưng sau đó nhận ra hệ thống cần quản lý nhiều mối quan hệ phức tạp:</p>
+                            <ul>
+                                <li><strong>Quản lý Gói tập (Packages):</strong> Một hội viên có thể mua nhiều gói (Tháng, Năm, PT). Cần phải theo dõi ngày bắt đầu và ngày kết thúc cho từng gói.</li>
+                                <li><strong>Lịch sử Check-in:</strong> Cần lưu trữ lịch sử ra/vào để tính toán tần suất và báo cáo hội viên vắng mặt.</li>
+                                <li><strong>Chuẩn hóa dữ liệu:</strong> Đảm bảo các bảng (Member, Package, Checkin) được chuẩn hóa (Normalization) để tránh dư thừa và dễ dàng truy vấn.</li>
+                            </ul>
+                            
+                            <h2>2. Xử lý nghiệp vụ Check-in Vân tay</h2>
+                            <p>Đây là phần khó nhất: kết nối ứng dụng C# Winform với thiết bị quét vân tay (thường dùng SDK của hãng ZKTECO hoặc tương đương). Quá trình này đòi hỏi phải xử lý các vấn đề:</p>
+                            <ul>
+                                <li><strong>Giao tiếp:</strong> Thiết lập giao tiếp giữa cổng COM/USB và ứng dụng.</li>
+                                <li><strong>Xác thực (Authentication):</strong> Lấy ID từ thiết bị và so khớp với Database SQL Server. Sai sót nhỏ ở đây là hội viên không vào được.</li>
+                            </ul>
+                            <div class="box">
+                                <strong>Bài học:</strong> Luôn đọc kỹ tài liệu SDK của nhà sản xuất. Bắt tay (Handshake) giữa phần mềm và phần cứng yêu cầu sự kiên nhẫn cao độ.
+                            </div>
+
+                            <h2>3. Kinh nghiệm về SQL Server (Tối ưu truy vấn)</h2>
+                            <p>Khi số lượng dữ liệu Check-in tăng lên, ứng dụng bắt đầu chậm lại. Vấn đề nằm ở các truy vấn (Queries) chưa được tối ưu.</p>
+                            <pre><code>-- Tránh SELECT * khi không cần thiết, chỉ lấy cột cần dùng:
+SELECT MemberName, PackageEndDate FROM Member WHERE MemberStatus = 'Active';
+
+-- Tối ưu hóa JOIN và sử dụng INDEX hiệu quả cho các trường thường xuyên tìm kiếm.</code></pre>
+                            
+                            <p><strong>Kết luận:</strong> Đồ án này dạy tôi rằng một dự án thực tế luôn luôn phức tạp hơn lý thuyết trên sách vở. Sự chuẩn bị kỹ lưỡng về Database và khả năng xử lý lỗi phần cứng là yếu tố quyết định thành công.</p>
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                        </form>
+                    </section>
+
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li class="active"><a href="blog.html">Blog Công nghệ</a></li>
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+    </body>
+</html>

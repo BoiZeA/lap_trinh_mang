@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Phân tích Flutter vs React Native - Trương Hải Nam</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+            <div id="main">
+                <div class="inner">
+
+                    <header id="header">
+                        <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                    </header>
+
+                    <p><a href="blog.html" class="button small icon solid fa-arrow-left">Quay lại Blog</a></p>
+                    
+                    <section>
+                        <div id="content">
+                            
+                            <h1 class="major">Flutter vs React Native: Lựa chọn nào cho năm 2024?</h1>
+                            <p>Đăng bởi: Trương Hải Nam | Chuyên mục: Mobile Development</p>
+                            
+                            <span class="image main"><img src="images/flvsreact.jpg" alt="Phân tích Flutter và React Native" /></span>
+
+                            <p>Trong kỷ nguyên phát triển ứng dụng di động đa nền tảng (cross-platform), cuộc chiến giữa **Flutter (Google)** và **React Native (Meta)** luôn là chủ đề nóng. Với kinh nghiệm thực chiến trên cả hai framework, tôi xin đưa ra một số nhận định dựa trên 3 tiêu chí cốt lõi: Hiệu suất, Giao diện và Cộng đồng hỗ trợ.</p>
+
+                            <hr />
+
+                            <h2>1. Hiệu suất & Kiến trúc (Performance & Architecture)</h2>
+                            <div class="row">
+                                <div class="col-6 col-12-small">
+                                    <h3>Flutter (Sức mạnh của Dart)</h3>
+                                    <p>Flutter đạt hiệu suất gần với ứng dụng Native nhất. Nó sử dụng ngôn ngữ **Dart** và biên dịch (compile) trực tiếp ra mã máy (native code). Quan trọng hơn, Flutter render giao diện trực tiếp trên "khung vẽ" (canvas) của thiết bị, loại bỏ "cầu nối" (Bridge) tốn thời gian.</p>
+                                    <div class="box">
+                                        <strong>Ưu tiên:</strong> Các ứng dụng cần nhiều hiệu ứng chuyển động, xử lý đồ họa phức tạp hoặc yêu cầu đồng nhất UI 100% trên mọi nền tảng.
+                                    </div>
+                                </div>
+                                <div class="col-6 col-12-small">
+                                    <h3>React Native (Cầu nối Native)</h3>
+                                    <p>RN sử dụng **JavaScript** và cần một "cầu nối" (JS Bridge) để giao tiếp với các thành phần gốc (Native Components) của iOS/Android. Quá trình này đôi khi gây ra hiện tượng giật, lag (cho dù đã được tối ưu rất nhiều).</p>
+                                    <div class="box">
+                                        <strong>Ưu tiên:</strong> Các ứng dụng đơn giản, tập trung vào CRUD (Tạo, Đọc, Sửa, Xóa dữ liệu) và khi đội ngũ đã có sẵn kinh nghiệm JavaScript.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="major" />
+
+                            <h2>2. Cộng đồng & Hệ sinh thái (Ecosystem)</h2>
+                            <p>Mặc dù Flutter đang tăng trưởng chóng mặt, sự khác biệt về cộng đồng và công cụ vẫn còn khá rõ rệt:</p>
+                            <ul>
+                                <li><strong>React Native:</strong> Kế thừa từ cộng đồng JavaScript/React **khổng lồ**. Rất nhiều thư viện và kinh nghiệm được chia sẻ.</li>
+                                <li><strong>Flutter:</strong> Cộng đồng nhỏ hơn nhưng **cực kỳ năng động** và được Google hỗ trợ mạnh. Các gói (packages) thường được cập nhật nhanh và chất lượng ổn định.</li>
+                            </ul>
+                            
+                            <hr class="major" />
+
+                            <h2>3. Kết luận cá nhân (Personal Verdict)</h2>
+                            <p>Tôi đã áp dụng cả hai framework vào dự án thực tế (App GoFit - Mobile App). Dưới đây là quyết định của tôi cho năm 2024:</p>
+                            <div class="box">
+                                <h3>✅ Chọn Flutter khi:</h3>
+                                <p>Bạn muốn một sản phẩm có vòng đời dài, cần bảo trì dễ dàng và đặc biệt chú trọng đến trải nghiệm người dùng, Hiệu suất và UI/UX (Như ứng dụng GoFit của tôi).</p>
+                                
+                                <h3>✅ Chọn React Native khi:</h3>
+                                <p>Bạn cần phát triển sản phẩm nhanh (MVP), và muốn tận dụng các thư viện JavaScript đã có sẵn. RN giúp việc chuyển từ code Web sang code Mobile rất thuận tiện.</p>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="inner">
+                    <section id="search" class="alt">
+                        <form method="post" action="#">
+                            <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                        </form>
+                    </section>
+
+                    <nav id="menu">
+                        <header class="major">
+                            <h2>Danh mục</h2>
+                        </header>
+                        <ul>
+                            <li><a href="index.html">Trang chủ (Home)</a></li>
+                            <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                            <li><a href="projects.html">Dự án (Projects)</a></li>
+                            <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                            <li class="active"><a href="blog.html">Blog Công nghệ</a></li>
+                            <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                        </ul>
+                    </nav>
+
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+    </body>
+</html>
