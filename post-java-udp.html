@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Giao thức UDP vs TCP - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #f44336; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #f44336; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .compare-table th, .compare-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .compare-table th { background-color: #f44336; color: white; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>UDP: Khi tốc độ mới là "Ông vua" của cuộc chơi</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt9.jpg" alt="UDP vs TCP Networking" /></span>
+
+                    <div class="post-intro">
+                        "Trong bài trước, mình đã khen TCP hết lời vì sự tin cậy. Thế nhưng, nếu bạn đang chơi Liên Minh Huyền Thoại hay xem Livestream mà mạng cứ bắt 'bắt tay 3 bước' rồi gửi lại gói tin cũ, thì chắc chắn bạn sẽ muốn đập máy vì lag. Đó là lúc UDP xuất hiện để giải cứu thế giới giải trí."
+                    </div>
+
+                    <p>Chào các bạn, hôm nay chúng ta sẽ cùng tìm hiểu về <strong>UDP (User Datagram Protocol)</strong> – một giao thức mà sự 'vô tâm' của nó lại chính là ưu điểm lớn nhất.</p>
+
+                    <h3>1. Datagram: Gửi đi và không nhìn lại</h3>
+                    <p>Khác với TCP thiết lập kết nối bền chặt, UDP gửi dữ liệu dưới dạng các <strong>Datagram</strong> độc lập. Nó không cần biết máy nhận có đang online hay không, cứ thế là ném dữ liệu đi. Không bắt tay, không kiểm tra lỗi, không gửi lại. Nghe có vẻ thiếu trách nhiệm nhỉ?</p>
+
+                    <h3>2. Tại sao chúng ta lại cần UDP?</h3>
+                    <p>Hãy tưởng tượng bạn đang xem bóng đá trực tuyến. Nếu một khung hình bị mất, bạn thà bỏ qua nó để xem tiếp diễn biến thực tế thay vì bắt trình duyệt phải tải lại khung hình của 5 giây trước. Tốc độ thực tế (Real-time) ở đây quan trọng hơn sự hoàn hảo.</p>
+
+                    
+
+                    <h3>3. So sánh thực tế: TCP vs UDP</h3>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Đặc điểm</th>
+                                <th>TCP (Tin cậy)</th>
+                                <th>UDP (Tốc độ)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kết nối</td>
+                                <td>Có thiết lập (Handshake)</td>
+                                <td>Không thiết lập</td>
+                            </tr>
+                            <tr>
+                                <td>Tốc độ</td>
+                                <td>Chậm hơn (do kiểm tra nhiều)</td>
+                                <td>Cực nhanh (Low latency)</td>
+                            </tr>
+                            <tr>
+                                <td>Độ tin cậy</td>
+                                <td>Tuyệt đối, không mất gói tin</td>
+                                <td>Có thể mất dữ liệu</td>
+                            </tr>
+                            <tr>
+                                <td>Ứng dụng</td>
+                                <td>Web, Email, Truyền file</td>
+                                <td>Game online, Livestream, VoIP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>4. Code thử nghiệm UDP trong Java</h3>
+                    <p>Trong Java, thay vì <code>Socket</code>, chúng ta dùng <code>DatagramSocket</code> và <code>DatagramPacket</code>. Dữ liệu được đóng gói vào một chiếc "phong bì" kèm theo địa chỉ rồi gửi đi.</p>
+
+                    <pre><code>// Gửi dữ liệu đi bằng UDP
+DatagramSocket socket = new DatagramSocket();
+byte[] data = "Hello UDP".getBytes();
+InetAddress address = InetAddress.getByName("localhost");
+
+DatagramPacket packet = new DatagramPacket(data, data.length, address, 9999);
+socket.send(packet); // Ném đi và xong!
+socket.close();</code></pre>
+
+                    <h3>Lời kết</h3>
+                    <p>Kết thúc series 9 bài viết về kiến thức đồ án, mình hy vọng các bạn đã có cái nhìn tổng quan từ những dòng code Java, JavaScript đầu tiên cho đến cách các máy tính giao tiếp với nhau qua mạng. UDP không tốt hơn TCP, và ngược lại. Quan trọng là bạn hiểu mình đang xây dựng ứng dụng gì để chọn "vũ khí" cho phù hợp.</p>
+
+                    <p>Cảm ơn các bạn đã đồng hành cùng mình qua chuỗi blog này. Chúc các bạn bảo vệ đồ án thành công rực rỡ!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

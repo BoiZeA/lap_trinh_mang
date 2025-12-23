@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>OOP trong JavaScript vs Java - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #f56a6a; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #f56a6a; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .compare-table th, .compare-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .compare-table th { background-color: #f56a6a; color: white; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>[JS] Hướng đối tượng trong JavaScript: Có giống như Java?</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt4.jpg" alt="JavaScript OOP vs Java" /></span>
+
+                    <div class="post-intro">
+                        "Hồi mới học Java xong qua học JS, mình kiểu: 'Ơ, sao Class trong này nhìn quen thế?'. Nhưng đào sâu hơn một chút, mình nhận ra đó chỉ là 'vỏ bọc' thôi. JavaScript thực chất có một linh hồn rất khác biệt gọi là Prototype."
+                    </div>
+
+                    <p>Nhiều người thường nói Java và JavaScript giống nhau như 'Cá' và 'Cá ngựa'. Điều này đặc biệt đúng khi chúng ta nói về <strong>Lập trình hướng đối tượng (OOP)</strong>. Cùng mình bóc tách xem chúng khác nhau thế nào nhé!</p>
+
+                    <h3>1. Class trong JS: Chiếc "máy ảnh" Filter</h3>
+                    <p>Trong Java, Class là một bản thiết kế (blueprint) cực kỳ nghiêm ngặt. Trong JavaScript, từ khóa <code>class</code> thực chất chỉ là "Syntactic Sugar" (cú pháp cho đẹp). Bên dưới lớp vỏ đó, JS vẫn sử dụng cơ chế <strong>Prototype-based</strong>.</p>
+                    
+                    <pre><code>// Khai báo Class trong JS (ES6)
+class Mobile {
+    constructor(brand, color) {
+        this.brand = brand;
+        this.color = color;
+    }
+
+    showInfo() {
+        return `Đây là điện thoại ${this.brand} màu ${this.color}`;
+    }
+}
+
+const myPhone = new Mobile("iPhone", "Titan");</code></pre>
+
+                    <h3>2. Tính kế thừa: Extends và Super</h3>
+                    <p>Cũng giống như Java, JS dùng <code>extends</code> để kế thừa. Tuy nhiên, sự linh hoạt của JS cho phép bạn thêm thuộc tính hoặc phương thức vào đối tượng ngay cả khi nó đã được khởi tạo – điều mà Java "phát điên" nếu bạn thử làm.</p>
+
+                    <pre><code>class SmartPhone extends Mobile {
+    constructor(brand, color, has5G) {
+        super(brand, color); // Gọi constructor của cha
+        this.has5G = has5G;
+    }
+}</code></pre>
+
+                    <h3>3. So sánh nhanh: JavaScript vs Java</h3>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Đặc điểm</th>
+                                <th>Java (Class-based)</th>
+                                <th>JavaScript (Prototype-based)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Định nghĩa</td>
+                                <td>Nghiêm ngặt, phải có Class mới có Object.</td>
+                                <td>Linh hoạt, Object có thể tạo trực tiếp.</td>
+                            </tr>
+                            <tr>
+                                <td>Tính kế thừa</td>
+                                <td>Kế thừa theo thứ bậc Class.</td>
+                                <td>Kế thừa qua chuỗi Prototype.</td>
+                            </tr>
+                            <tr>
+                                <td>Kiểu dữ liệu</td>
+                                <td>Strongly typed (Kiểu dữ liệu tĩnh).</td>
+                                <td>Loosely typed (Kiểu dữ liệu động).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Tại sao chúng ta vẫn cần OOP trong JS?</h3>
+                    <p>Dù JS là ngôn ngữ đa hình thái, việc áp dụng OOP giúp code của bạn:</p>
+                    <ul>
+                        <li><span class="highlight">Dễ quản lý:</span> Gom nhóm các thuộc tính và hành động liên quan vào một chỗ.</li>
+                        <li><span class="highlight">Tái sử dụng:</span> Viết một lần, dùng ở nhiều nơi qua kế thừa.</li>
+                        <li><span class="highlight">Sạch sẽ:</span> Giảm thiểu sự hỗn loạn khi dự án web của bạn phình to.</li>
+                    </ul>
+
+                    <h3>Lời kết</h3>
+                    <p>Đừng để cú pháp giống nhau làm bạn lầm tưởng. Java là một "kỷ luật viên" nghiêm túc, còn JavaScript là một "nghệ sĩ" tự do. Hiểu rõ bản chất Prototype phía sau Class trong JS sẽ giúp bạn làm chủ ngôn ngữ này một cách thực thụ.</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Danh mục</h2>
+                    </header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Đa luồng trong Java - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #2196f3; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #2196f3; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .tip-box { background: #e3f2fd; border-left: 5px solid #2196f3; padding: 15px; margin: 20px 0; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>[Java] Đa luồng: Tuyệt chiêu trị bệnh "đơ" ứng dụng</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt6.jpg" alt="Java Multithreading" /></span>
+
+                    <div class="post-intro">
+                        "Bạn đã bao giờ nhấn vào một cái nút 'Tải dữ liệu' và rồi cả cửa sổ ứng dụng trắng xóa, không thể kéo đi đâu được, kèm theo dòng chữ 'Not Responding' đáng ghét chưa? Mình đã từng như vậy, cho đến khi mình biết đến sức mạnh của Multithreading."
+                    </div>
+
+                    <p>Trong Java, mặc định mọi thứ chạy trên một luồng duy nhất gọi là <strong>Main Thread</strong> (hay UI Thread). Nếu bạn bắt cái luồng này vừa vẽ giao diện, vừa phải đi tải một file nặng 1GB, nó sẽ bị 'nghẹn' và làm đứng hình toàn bộ ứng dụng. Giải pháp là gì? Hãy chia việc ra!</p>
+
+                    <h3>1. Thread và Runnable: Những công nhân thầm lặng</h3>
+                    <p>Hãy tưởng tượng <code>Thread</code> là một công nhân, còn <code>Runnable</code> là bản danh sách các việc cần làm. Thay vì tự mình làm hết, bạn thuê thêm một công nhân và đưa bản danh sách việc cho họ làm ở 'phòng sau'.</p>
+
+                    
+
+                    <pre><code>// Cách dùng Runnable (Được khuyên dùng vì tính linh hoạt)
+Runnable task = () -> {
+    for(int i = 0; i < 5; i++) {
+        System.out.println("Đang tải dữ liệu: " + i * 20 + "%");
+        try { Thread.sleep(1000); } catch (InterruptedException e) {}
+    }
+    System.out.println("Xong rồi nè!");
+};
+
+Thread worker = new Thread(task);
+worker.start(); // Thuê công nhân và bắt đầu làm việc ngay!</code></pre>
+
+                    <h3>2. Tại sao lại dùng Runnable thay vì kế thừa Thread?</h3>
+                    <p>Trong Java, bạn chỉ được phép kế thừa một lớp duy nhất. Nếu bạn kế thừa lớp <code>Thread</code>, bạn không thể kế thừa thêm gì khác. Nhưng nếu bạn <code>implements Runnable</code>, bạn vẫn có thể thoải mái kế thừa các lớp khác (như <code>JPanel</code> chẳng hạn). Đó là lý do tại sao dùng Interface luôn là lựa chọn thông minh hơn.</p>
+
+                    <h3>3. "Tử huyệt" khi dùng Đa luồng trong giao diện (Swing)</h3>
+                    <div class="tip-box">
+                        <strong>Lưu ý cực kỳ quan trọng:</strong> Bạn không bao giờ được phép cập nhật giao diện (như đổi chữ trên JLabel, hiện thông báo...) trực tiếp từ luồng phụ. Điều này sẽ gây ra lỗi xung đột bộ nhớ.
+                    </div>
+                    <p>Để cập nhật giao diện an toàn từ luồng phụ, bạn phải dùng "đặc sứ" <code>SwingUtilities.invokeLater</code>:</p>
+
+                    <pre><code>SwingUtilities.invokeLater(() -> {
+    labelStatus.setText("Tải hoàn tất!");
+});</code></pre>
+
+                    
+
+                    <h3>Lời kết</h3>
+                    <p>Đa luồng giống như một con dao hai lưỡi. Nếu dùng đúng, ứng dụng của bạn sẽ mượt mà như lướt web trên iPhone. Nếu dùng sai, bạn sẽ gặp những lỗi 'ma' như dữ liệu bị sai lệch (Race Condition). Nhưng đừng lo, chỉ cần nắm vững cơ bản về <code>Thread</code> và <code>Runnable</code>, bạn đã có thể giải quyết được 80% vấn đề của các đồ án sinh viên rồi!</p>
+
+                    <p>Cảm ơn các bạn đã theo dõi bài viết của mình. Hãy thử áp dụng luồng phụ cho các chức năng load dữ liệu nặng trong đồ án của bạn nhé!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Sức mạnh của Arrow Function - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #f56a6a; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #f56a6a; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>Arrow Function: Không chỉ là cú pháp, đó là sự giải thoát!</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt2.jpg" alt="JavaScript Arrow Function" /></span>
+
+                    <div class="post-intro">
+                        "Có bao giờ bạn viết một hàm bên trong một hàm khác, rồi hì hục gọi con trỏ 'this' nhưng nó lại trả về... window hoặc undefined chưa? Mình đã từng mất cả một buổi tối chỉ vì cái lỗi ngớ ngẩn đó, cho đến khi mình biết đến Arrow Function."
+                    </div>
+
+                    <p>Nếu JavaScript là một món ăn, thì ES6 chính là gia vị làm cho món ăn đó trở nên 'sang chảnh' hơn. Và trong số đó, <strong>Arrow Function (Hàm mũi tên)</strong> chính là thứ thay đổi hoàn toàn cách mình viết code hàng ngày.</p>
+
+                    <h3>1. Viết code ít hơn, làm được nhiều hơn</h3>
+                    <p>Điểm cộng đầu tiên mà ai cũng thấy là nó... ngắn. Thay vì phải gõ đi gõ lại từ khóa <code>function</code> cồng kềnh, giờ đây chúng ta chỉ cần một dấu mũi tên <code>=></code> thần thánh.</p>
+                    
+                    <p>Đặc biệt là khi kết hợp với các hàm xử lý mảng như <code>map</code> hay <code>filter</code>, code của bạn nhìn sẽ chuyên nghiệp và tinh gọn hơn rất nhiều:</p>
+
+                    <pre><code>// Cách cũ: Dài dòng và mệt mỏi
+const square = function(n) {
+    return n * n;
+};
+
+// Arrow Function: Một dòng duy nhất!
+const square = n => n * n;</code></pre>
+
+                    <h3>2. "Cứu tinh" cho con trỏ 'this'</h3>
+                    <p>Đây mới là lý do thực sự khiến mình yêu Arrow Function. Trong các hàm truyền thống, <code>this</code> được định nghĩa dựa trên <strong>cách hàm đó được gọi</strong>. Điều này dẫn đến việc chúng ta hay phải dùng những thủ thuật "xấu xí" như <code>var self = this;</code> hoặc <code>.bind(this)</code> để giữ được ngữ cảnh.</p>
+                    
+                    <p>Arrow Function thì khác, nó không có <code>this</code> riêng. Nó mượn <code>this</code> từ phạm vi bên ngoài bao quanh nó (lexical scoping). </p>
+
+                    <pre><code>// Vấn đề với hàm truyền thống trong Timer
+function Timer() {
+    this.seconds = 0;
+    setInterval(function() {
+        this.seconds++; // 'this' ở đây lại trỏ vào Global object chứ không phải Timer!
+        console.log(this.seconds);
+    }, 1000);
+}
+
+// Giải pháp với Arrow Function: Mọi thứ hoạt động hoàn hảo!
+function Timer() {
+    this.seconds = 0;
+    setInterval(() => {
+        this.seconds++; // 'this' trỏ đúng vào đối tượng Timer
+        console.log(this.seconds);
+    }, 1000);
+}</code></pre>
+
+                    <h3>3. Vậy khi nào KHÔNG nên dùng?</h3>
+                    <p>Mặc dù rất tiện, nhưng không phải chỗ nào mình cũng lôi Arrow Function ra dùng đâu nhé. Có 2 trường hợp mình vẫn phải dùng <code>function</code> truyền thống:</p>
+                    <ul>
+                        <li><span class="highlight">Khi làm Method cho Object:</span> Nếu bạn cần dùng <code>this</code> để truy cập thuộc tính của chính object đó.</li>
+                        <li><span class="highlight">Khi cần dùng 'arguments':</span> Arrow function không hỗ trợ đối tượng <code>arguments</code>.</li>
+                    </ul>
+
+                    <h3>Tạm kết</h3>
+                    <p>Arrow Function giúp code của mình không chỉ chạy đúng mà còn phải "đẹp". Nó giúp mình tập trung vào logic thay vì phải đi đánh vật với các cú pháp rườm rà. Nếu bạn chưa quen, hãy thử bắt đầu thay thế các callback đơn giản bằng <code>=></code>, bạn sẽ thấy yêu nó ngay thôi!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

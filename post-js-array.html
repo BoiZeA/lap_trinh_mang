@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Tư duy xử lý mảng hiện đại - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #f56a6a; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #f56a6a; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .method-box { background: #fdf2f2; padding: 15px; border-radius: 5px; margin: 10px 0; border: 1px solid #f56a6a; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>Tạm biệt vòng lặp For: Tư duy xử lý mảng hiện đại</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt3.jpg" alt="JS Array Methods" /></span>
+
+                    <div class="post-intro">
+                        "Hồi mới tập code, mình luôn bắt đầu bằng 'for (let i = 0; i < arr.length; i++)'. Nó giống như việc bạn đi bộ từng bước một vậy. Nhưng khi dữ liệu lớn dần và yêu cầu phức tạp hơn, mình nhận ra mình cần một chiếc 'siêu xe' để xử lý mảng nhanh hơn, và đó là lúc bộ ba Map, Filter, Reduce xuất hiện."
+                    </div>
+
+                    <p>Trong lập trình hiện đại, chúng ta chuyển từ tư duy <strong>Imperative</strong> (mô tả cách làm từng bước) sang <strong>Declarative</strong> (mô tả kết quả mình muốn). Hãy cùng mình khám phá bộ ba quyền lực này nhé!</p>
+
+                    <h3>1. MAP – Khi bạn muốn "thay lớp áo mới" cho dữ liệu</h3>
+                    <p>Hãy dùng <code>map()</code> khi bạn có một danh sách và muốn biến đổi từng phần tử trong đó thành một giá trị mới nhưng vẫn giữ nguyên số lượng phần tử.</p>
+                    <div class="method-box">
+                        <strong>Ví dụ:</strong> Bạn có một danh sách giá sản phẩm (số) và muốn chuyển chúng thành định dạng tiền tệ (chuỗi kèm ký hiệu $).
+                    </div>
+                    <pre><code>const prices = [100, 200, 300];
+
+// Cách cũ: dùng for và push vào mảng mới (rất dài dòng)
+// Cách mới:
+const formattedPrices = prices.map(price => `${price}$`);
+
+console.log(formattedPrices); // ["100$", "200$", "300$"]</code></pre>
+
+                    <h3>2. FILTER – "Người gác cổng" tận tâm</h3>
+                    <p>Dùng <code>filter()</code> khi bạn muốn lọc ra những phần tử thỏa mãn một điều kiện nhất định. Hàm này sẽ trả về một mảng mới chỉ chứa các phần tử "vượt qua vòng gửi xe".</p>
+                    <div class="method-box">
+                        <strong>Ví dụ:</strong> Lọc danh sách sinh viên để tìm những người có điểm số từ 5 trở lên.
+                    </div>
+                    <pre><code>const students = [
+    { name: "Nam", score: 9 },
+    { name: "An", score: 4 },
+    { name: "Bình", score: 7 }
+];
+
+const passedStudents = students.filter(s => s.score >= 5);
+
+// Kết quả: Nam và Bình được chọn, An bị loại.</code></pre>
+
+                    <h3>3. REDUCE – "Trùm cuối" gom tụ dữ liệu</h3>
+                    <p>Đây là hàm khó nhất nhưng cũng quyền năng nhất. Nó dùng để nén toàn bộ mảng thành **một giá trị duy nhất** (có thể là một số, một chuỗi, hoặc thậm chí là một Object mới).</p>
+                    <pre><code>const cart = [10, 20, 30];
+
+// Tính tổng tiền trong giỏ hàng
+const total = cart.reduce((accumulator, current) => accumulator + current, 0);
+
+console.log(total); // 60</code></pre>
+
+                    <h3>Tại sao mình lại "nghiện" dùng những hàm này?</h3>
+                    <ul>
+                        <li><span class="highlight">Code ngắn gọn:</span> Thay vì 5-7 dòng vòng lặp, mình chỉ cần 1 dòng.</li>
+                        <li><span class="highlight">Ít lỗi hơn:</span> Mình không cần lo về việc quản lý biến chạy <code>i</code> hay bị lỗi <em>out of bounds</em>.</li>
+                        <li><span class="highlight">Dễ bảo trì:</span> Nhìn vào tên hàm <code>filter</code> là biết ngay mục đích của đoạn code đó là để lọc dữ liệu.</li>
+                    </ul>
+
+                    <h3>Lời kết</h3>
+                    <p>Học cách sử dụng Map, Filter, Reduce không chỉ là học cú pháp mới, mà là học cách thay đổi tư duy giải quyết vấn đề. Hãy thử áp dụng chúng vào đồ án sắp tới của bạn, mình tin là bạn sẽ thấy "ghiền" giống mình thôi!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Danh mục</h2>
+                    </header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

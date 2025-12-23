@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Lập trình Socket TCP - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #9c27b0; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #9c27b0; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .concept-box { background: #f3e5f5; border: 1px solid #ce93d8; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>Socket TCP: Chiếc điện thoại "nối dây" giữa hai máy tính</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt8.jpg" alt="Java Socket Programming TCP" /></span>
+
+                    <div class="post-intro">
+                        "Trong môn Lập trình mạng, mình thích nhất là giao thức TCP. Tại sao ư? Vì nó cực kỳ 'chu đáo' và 'trách nhiệm'. Nó giống như việc bạn gọi điện cho một người bạn, phải đợi đầu dây bên kia nhấc máy, 'Alo' một tiếng rồi mới bắt đầu kể chuyện."
+                    </div>
+
+                    <p>Chào các bạn, hôm nay mình sẽ giải mã mô hình <strong>Client-Server</strong> thông qua Socket TCP – nền tảng của các ứng dụng chat, web và truyền file mà chúng ta dùng hàng ngày.</p>
+
+                    <h3>1. Bắt tay 3 bước: Sự tin cậy tuyệt đối</h3>
+                    <p>Khác với gửi thư tay (có thể thất lạc), TCP Socket yêu cầu một quy trình gọi là <strong>3-Way Handshake</strong>. </p>
+                    
+                    
+
+                    <p>Chính nhờ quy trình này mà TCP đảm bảo dữ liệu gửi đi sẽ đến nơi đầy đủ và đúng thứ tự. Nếu một gói tin bị rơi dọc đường? TCP sẽ tự động gửi lại. Đó là lý do nó được gọi là giao thức hướng kết nối (Connection-oriented).</p>
+
+                    <h3>2. Server và Client: Ai là người chủ động?</h3>
+                    <div class="concept-box">
+                        <strong>Mô hình đời thực:</strong><br>
+                        - <strong>Server:</strong> Giống như một cửa hàng luôn mở cửa và có một nhân viên trực tổng đài (ServerSocket). Nhân viên này chỉ ngồi yên và lắng nghe tiếng chuông điện thoại.<br>
+                        - <strong>Client:</strong> Giống như khách hàng chủ động nhấc máy và quay số (IP và Port) để gọi vào cửa hàng.
+                    </div>
+
+                    <h3>3. Code "Alo" đầu tiên giữa Server và Client</h3>
+                    <p>Đây là đoạn code tối giản nhất để bạn hiểu cách Server lắng nghe một kết nối:</p>
+
+                    <pre><code>// Phía SERVER: Lắng nghe tại cổng 8888
+ServerSocket server = new ServerSocket(8888);
+System.out.println("Đang chờ 'người ấy' gọi đến...");
+
+Socket socket = server.accept(); // Dừng lại đây cho đến khi có Client kết nối
+System.out.println("Đã kết nối thành công!");</code></pre>
+
+                    
+
+                    <h3>4. Ứng dụng: Xây dựng Chat LAN đơn giản</h3>
+                    <p>Để hai máy tính nhắn tin qua lại, chúng ta dùng <code>InputStream</code> để đọc tin nhắn và <code>OutputStream</code> để gửi tin nhắn. Kết hợp với bài viết về <strong>Đa luồng (Post #6)</strong>, bạn có thể tạo ra một phòng chat mà nhiều người có thể tham gia cùng lúc mà không bị đơ giao diện.</p>
+
+                    <pre><code>// Gửi dữ liệu đi
+PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+out.println("Chào Server, mình là Client đây!");
+
+// Đọc dữ liệu về
+BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+String response = in.readLine();
+System.out.println("Server phản hồi: " + response);</code></pre>
+
+                    <h3>Lời kết</h3>
+                    <p>Lập trình Socket TCP không khó, cái khó là bạn phải kiểm soát được luồng dữ liệu và đóng kết nối đúng lúc để tránh lãng phí tài nguyên. Nếu bạn đang làm đồ án về game online hay ứng dụng chat, TCP chính là sự lựa chọn hàng đầu nhờ tính tin cậy của nó.</p>
+
+                    <p>Cảm ơn các bạn đã đọc bài. Bài tiếp theo chúng ta sẽ nói về <strong>UDP</strong> – một giao thức "nhanh như chớp" nhưng lại hơi "vô tâm". Hẹn gặp lại nhé!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

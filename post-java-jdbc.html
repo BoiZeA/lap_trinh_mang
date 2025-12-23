@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Kinh nghiệm kết nối JDBC - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #4CAF50; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #4CAF50; font-weight: bold; }
+        .error-note { background: #fff5f5; border-left: 5px solid #f56a6a; padding: 15px; margin: 20px 0; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>JDBC và MySQL: "Cây cầu" nối liền Java với Cơ sở dữ liệu</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt5.jpg" alt="Java JDBC Connection" /></span>
+
+                    <div class="post-intro">
+                        "Làm đồ án quản lý mà không có Database thì giống như nấu cơm mà không có gạo vậy. Nhưng mình thề, cái cảm giác lần đầu chạy code mà nó báo 'Connection Success' nó sướng hơn cả lúc nhận điểm 10!"
+                    </div>
+
+                    <p>Chào các bạn, JDBC là một thư viện của Java giúp chúng ta thực hiện các câu lệnh SQL ngay trong mã nguồn Java. Nghe thì đơn giản, nhưng để 'cây cầu' này hoạt động trơn tru thì có rất nhiều chi tiết nhỏ cần lưu ý.</p>
+
+                    <h3>1. Công thức của một Connection String chuẩn</h3>
+                    <p>Nhiều bạn thường copy nguyên xi trên mạng về rồi chạy không được vì sai thông tin. Đây là cấu trúc mình luôn dùng:</p>
+                    
+                    <pre><code>String url = "jdbc:mysql://localhost:3306/ten_database";
+String user = "root";
+String password = ""; // Thường XAMPP để trống, MySQL Installer thì có pass
+
+Connection conn = DriverManager.getConnection(url, user, password);</code></pre>
+
+                    
+
+                    <h3>2. Những "hố tử thần" và cách né</h3>
+                    <div class="error-note">
+                        <strong>Lỗi 1: ClassNotFoundException</strong><br>
+                        Đây là lỗi do bạn quên chưa "vứt" file Driver (mysql-connector-java.jar) vào thư viện của dự án. <br>
+                        <em>Cách sửa:</em> Download file .jar về, chuột phải vào Project -> Build Path -> Add External Archives.
+                    </div>
+
+                    <div class="error-note">
+                        <strong>Lỗi 2: Timezone (Múi giờ)</strong><br>
+                        Các bản MySQL mới thường bắt lỗi múi giờ. Nếu gặp lỗi, hãy thêm đoạn này vào sau tên database trong URL:<br>
+                        <code>?useLegacyDatetimeCode=false&serverTimezone=UTC</code>
+                    </div>
+
+                    <div class="error-note">
+                        <strong>Lỗi 3: Quên đóng kết nối</strong><br>
+                        Đây là lỗi 'vô hình'. Code vẫn chạy nhưng chạy một lúc là Database bị treo. <br>
+                        <em>Cách sửa:</em> Luôn sử dụng <code>try-with-resources</code> để Java tự động đóng kết nối cho bạn.
+                    </div>
+
+                    <h3>3. Code mẫu kết nối "sạch"</h3>
+                    <p>Thay vì viết code tràn lan, mình thường đóng gói nó vào một Class <code>DBContext</code> để tái sử dụng ở mọi nơi:</p>
+
+                    <pre><code>public class DBContext {
+    public Connection getConnection() throws Exception {
+        String url = "jdbc:mysql://localhost:3306/LibraryDB";
+        String user = "root";
+        String password = "123";
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(url, user, password);
+    }
+}</code></pre>
+
+                    <h3>Lời khuyên cho các bạn làm đồ án</h3>
+                    <p>Hãy luôn kiểm tra kết nối Database đầu tiên trước khi viết các chức năng Thêm/Xóa/Sửa. Nếu "cây cầu" chưa vững, đừng vội xây nhà trên đó. Và nhớ nhé, mật khẩu database đừng bao giờ để lộ lên GitHub nếu đó là dự án thực tế!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

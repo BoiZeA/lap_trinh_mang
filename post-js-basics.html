@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Chuyện về Biến trong JS - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Style cho code block nhìn xịn xịn */
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #f56a6a; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #f56a6a; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div class="inner">
+
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>Chuyện về Var, Let và Const: Đừng để "biến" thành "biến cố"!</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt1.jpg" alt="JavaScript Variables" /></span>
+
+                    <div class="post-intro">
+                        "Hôm nay mình ngồi lục lại mấy dòng code cũ hồi năm nhất, thấy mình xài var vô tội vạ mà tự cười một mình. Hồi đó cứ nghĩ biến nào chẳng là biến, miễn chạy được là xong. Nhưng đời không như là mơ..."
+                    </div>
+
+                    <p>Chào các bạn, nếu bạn từng thức trắng đêm chỉ để debug một cái lỗi "vớ vẩn" khi giá trị biến tự nhiên thay đổi mà không biết tại sao, thì bài viết này dành cho bạn. Chúng ta sẽ cùng nói về cách JavaScript quản lý các "chiếc hộp" chứa dữ liệu của chúng ta.</p>
+
+                    <h3>1. Var – "Ông hoàng" rắc rối và bóng ma Hoisting</h3>
+                    <p>Ngày xưa, <code>var</code> là tất cả. Nhưng <code>var</code> có một tính cách rất "tùy tiện". Hai vấn đề lớn nhất của nó là <strong>Hoisting</strong> và <strong>Function Scope</strong>.</p>
+                    
+                    <p>Hãy tưởng tượng <strong>Hoisting</strong> như việc bạn chưa kịp mời khách vào nhà mà khách đã chễm chệ ngồi ở ghế sofa rồi. Trong JS, bạn có thể gọi biến trước cả khi khai báo nó mà không bị báo lỗi ngay lập tức. Điều này cực kỳ nguy hiểm vì nó tạo ra những giá trị <code>undefined</code> lơ lửng.</p>
+
+                    
+
+                    <pre><code>console.log(name); // Không lỗi đâu, nó hiện 'undefined' mới tức chứ!
+var name = "Nam ZeA";</code></pre>
+
+                    <h3>2. Scope – Ranh giới là điều cần thiết</h3>
+                    <p>Với <code>var</code>, nó không quan tâm bạn đang ở trong vòng lặp <code>if</code> hay <code>for</code>. Nó cứ tràn ra ngoài như nước tràn bờ đê. Đó là lý do <strong>Block Scope</strong> của <code>let</code> và <code>const</code> ra đời để cứu rỗi chúng ta.</p>
+                    <p>Khi bạn dùng <code>let</code> trong một dấu ngoặc nhọn <code>{...}</code>, nó sẽ chỉ sống ở đó thôi. Ra ngoài là nó "biến mất", giúp bộ nhớ sạch sẽ và code cực kỳ minh bạch.</p>
+
+                    <h3>3. Công thức "Vàng" để code sạch hơn</h3>
+                    <p>Sau nhiều lần "ăn hành" với bug, mình rút ra một quy tắc bất di bất dịch cho bản thân:</p>
+                    <ul>
+                        <li><span class="highlight">Dùng CONST cho mọi thứ:</span> Mặc định hãy dùng <code>const</code>. Nếu giá trị không thay đổi (như tên, ngày sinh, link API...), hãy khóa nó lại. Điều này giúp người đọc code hiểu rằng: "Biến này an toàn, đừng lo nó bị đổi".</li>
+                        <li><span class="highlight">Dùng LET khi thực sự cần:</span> Chỉ khi nào bạn biết chắc biến đó phải tăng giảm (như biến đếm <code>i</code> trong vòng lặp), hãy dùng <code>let</code>.</li>
+                        <li><span class="highlight">Nói KHÔNG với VAR:</span> Hãy coi <code>var</code> như người yêu cũ, kỷ niệm thì đẹp nhưng đừng bao giờ quay lại!</li>
+                    </ul>
+
+                    <h3>Kết luận nhỏ</h3>
+                    <p>Lập trình không chỉ là bắt máy tính làm việc, mà còn là viết sao cho đồng đội (và chính mình 6 tháng sau) đọc mà không thấy nhức đầu. Việc hiểu rõ <strong>Scope</strong> và <strong>Hoisting</strong> chính là bước đầu tiên để bạn nâng cấp từ "coder" lên "developer" thực thụ.</p>
+
+                    <p>Cảm ơn các bạn đã đọc blog của mình! Các bạn thường dùng <code>let</code> hay <code>const</code> nhiều hơn? Để lại bình luận cho mình biết nhé!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Danh mục</h2>
+                    </header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Lập trình Game với Java Swing - Trương Hải Nam</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        pre { background: #2d2d2d; color: #ccc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 20px 0; border-left: 5px solid #ff9800; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        .highlight { color: #ff9800; font-weight: bold; }
+        .post-intro { font-style: italic; color: #777; border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 30px; }
+        .physics-box { background: #fffde7; border: 1px solid #fff176; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Portfolio</strong> | Trương Hải Nam</a>
+                </header>
+
+                <section>
+                    <header class="main">
+                        <h1>[Java] Game bóng nảy: Bài học đầu đời về Đồ họa và Vật lý</h1>
+                    </header>
+
+                    <span class="image main"><img src="images/pickt7.jpg" alt="Java Swing Graphics Game" /></span>
+
+                    <div class="post-intro">
+                        "Bạn có bao giờ thắc mắc làm sao những nhân vật trong game có thể di chuyển mượt mà trên màn hình không? Hồi mới học Java Swing, mình chỉ biết kéo thả nút bấm (Button) hay ô nhập liệu (TextField). Nhưng khi làm bài tập 'Bouncing Ball', mình mới thực sự hiểu về linh hồn của đồ họa máy tính."
+                    </div>
+
+                    <p>Trong bài viết này, mình sẽ chia sẻ về cách 'vẽ' bằng code và logic va chạm vật lý đơn giản nhất mà bất kỳ lập trình viên Java nào cũng nên trải nghiệm qua.</p>
+
+                    <h3>1. Phương thức paintComponent – Tấm toan của họa sĩ</h3>
+                    <p>Trong Java Swing, mọi việc vẽ vời đều diễn ra bên trong phương thức <code>paintComponent</code> của một JPanel. Hãy tưởng tượng nó như một tấm toan trắng, và đối tượng <code>Graphics g</code> chính là cây cọ vẽ của bạn.</p>
+                    
+                    <pre><code>@Override
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g); // Xóa hình cũ trước khi vẽ hình mới
+    g.setColor(Color.RED);
+    g.fillOval(x, y, 30, 30); // Vẽ quả bóng tại tọa độ (x, y)
+}</code></pre>
+
+                    <h3>2. Game Loop: Bí mật của sự chuyển động</h3>
+                    <p>Quả bóng không tự di chuyển. Nó "trông có vẻ" di chuyển là vì chúng ta vẽ nó ở vị trí mới liên tục hàng chục lần mỗi giây. Chúng ta cần một <strong>Timer</strong> để cập nhật tọa độ và gọi hàm <code>repaint()</code>.</p>
+
+                    
+
+                    <h3>3. Va chạm vật lý: Khi quả bóng "biết" bật lại</h3>
+                    <p>Đây là phần thú vị nhất. Làm sao quả bóng biết khi nào chạm tường để nảy lại? Chúng ta chỉ cần một vài câu lệnh <code>if</code> đơn giản để kiểm tra tọa độ so với kích thước khung hình.</p>
+                    
+                    <div class="physics-box">
+                        <strong>Logic va chạm:</strong><br>
+                        - Nếu <code>x < 0</code> hoặc <code>x + đường_kính > chiều_rộng</code>: Đổi chiều vận tốc X (<code>vx = -vx</code>).<br>
+                        - Tương tự với trục Y để xử lý cạnh trên và cạnh dưới.
+                    </div>
+
+                    <pre><code>public void update() {
+    x += vx;
+    y += vy;
+
+    // Kiểm tra va chạm tường trái/phải
+    if (x < 0 || x + 30 > getWidth()) {
+        vx = -vx;
+    }
+    // Kiểm tra va chạm tường trên/dưới
+    if (y < 0 || y + 30 > getHeight()) {
+        vy = -vy;
+    }
+}</code></pre>
+
+                    <h3>Lời kết</h3>
+                    <p>Dù chỉ là một quả bóng nảy đơn giản, nhưng nó hội tụ đủ các kiến thức về: <strong>Tọa độ Oxy trong máy tính</strong>, <strong>Vòng lặp Game</strong> và <strong>Xử lý đa luồng</strong> (để giao diện không bị treo). Đây chính là những viên gạch đầu tiên nếu bạn muốn tiến xa hơn trong lĩnh vực lập trình game hoặc các ứng dụng mô phỏng phức tạp.</p>
+
+                    <p>Hy vọng bài viết này giúp các bạn bớt "sợ" khi đụng đến Graphics trong Java. Hãy thử đổi màu quả bóng mỗi khi nó chạm tường xem sao nhé, thú vị lắm đấy!</p>
+
+                    <hr class="major" />
+                    <ul class="actions">
+                        <li><a href="blog.html" class="button primary">Quay lại danh sách Blog</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Tìm kiếm bài viết..." />
+                    </form>
+                </section>
+                <nav id="menu">
+                    <header class="major"><h2>Danh mục</h2></header>
+                    <ul>
+                        <li><a href="index.html">Trang chủ (Home)</a></li>
+                        <li><a href="skills.html">Kỹ năng (Skills)</a></li>
+                        <li><a href="projects.html">Dự án (Projects)</a></li>
+                        <li><a href="network.html">Kiến thức Mạng (Network)</a></li>
+                        <li><a href="blog.html">Blog Công nghệ</a></li>
+                        <li><a href="contact.html">Liên hệ (Contact)</a></li>
+                    </ul>
+                </nav>
+                <footer id="footer">
+                    <p class="copyright">&copy; Bản quyền thuộc về Trương Hải Nam.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
